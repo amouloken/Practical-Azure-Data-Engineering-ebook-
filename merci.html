@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Thank You | Azure Data Pipeline Ebook</title>
+
+  <style>
+    :root {
+      --primary: #0067b8;
+      --secondary: #7b2cbf;
+      --accent: #00b7c3;
+      --dark: #07111f;
+      --dark-soft: #0d1b2e;
+      --white: #ffffff;
+      --light: #f4f8fc;
+      --text: #18212f;
+      --muted: #64748b;
+      --success: #16a34a;
+      --whatsapp: #25d366;
+      --shadow: 0 22px 60px rgba(7, 17, 31, 0.20);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 15%, rgba(123, 44, 191, 0.20), transparent 28%),
+        radial-gradient(circle at 12% 85%, rgba(0, 183, 195, 0.18), transparent 30%),
+        linear-gradient(135deg, #07111f 0%, #0a2a48 58%, #143a63 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .topbar {
+      background: rgba(0, 0, 0, 0.20);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+    }
+
+    .header {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 8px 20px rgba(0, 103, 184, 0.30);
+    }
+
+    .language-button {
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.10);
+      color: var(--white);
+      padding: 10px 15px;
+      border-radius: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      padding: 55px 0 80px;
+    }
+
+    .thank-you-card {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 42px;
+      align-items: center;
+      background: rgba(255,255,255,.97);
+      border-radius: 30px;
+      padding: 38px;
+      box-shadow: var(--shadow);
+    }
+
+    .cover-panel {
+      background: linear-gradient(135deg, #eef7ff, #f7f2ff);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .cover-panel img {
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(7,17,31,.20);
+    }
+
+    .success-icon {
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      background: #dcfce7;
+      color: var(--success);
+      font-size: 2.4rem;
+      font-weight: 900;
+    }
+
+    h1 {
+      color: var(--dark);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      margin-bottom: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-bottom: 26px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 13px;
+      margin-bottom: 28px;
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--light);
+      border: 1px solid #e4edf6;
+    }
+
+    .step-number {
+      flex: 0 0 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: #e6f4ff;
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .step strong {
+      display: block;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 12px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #1593e4);
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(0, 103, 184, 0.24);
+    }
+
+    .btn-primary:hover,
+    .btn-whatsapp:hover,
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.23);
+    }
+
+    .btn-secondary {
+      border: 2px solid #d7e3ef;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    .help-box {
+      margin-top: 22px;
+      padding: 15px;
+      border-radius: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: .93rem;
+    }
+
+    .footer {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      padding: 26px 0;
+      color: #c3d3e1;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 850px) {
+      .thank-you-card {
+        grid-template-columns: 1fr;
+      }
+
+      .cover-panel {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .thank-you-card {
+        padding: 22px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .page {
+        padding-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div
+    class="topbar"
+    data-en="Payment confirmed • Your ebook is ready"
+    data-fr="Paiement confirmé • Votre ebook est prêt"
+  >
+    Payment confirmed • Your ebook is ready
+  </div>
+
+  <header class="header">
+    <a class="brand" href="index.html">
+      <span class="logo">M</span>
+      <span>MOULOSOFT ACADEMY</span>
+    </a>
+
+    <button class="language-button" id="languageButton" type="button">FR</button>
+  </header>
+
+  <main class="page">
+    <section class="thank-you-card">
+
+      <div class="cover-panel">
+        <img
+          src="ebook-cover.jpg"
+          alt="From On-Prem to Analytics Azure Data Pipeline ebook"
+        />
+      </div>
+
+      <div class="content">
+
+        <div class="success-icon">✓</div>
+
+        <h1
+          data-en="Thank you for your purchase!"
+          data-fr="Merci pour votre achat !"
+        >
+          Thank you for your purchase!
+        </h1>
+
+        <p
+          class="intro"
+          data-en="Your payment has been successfully completed. You can now download your copy of From On-Prem to Analytics: Azure Data Pipeline."
+          data-fr="Votre paiement a bien été effectué. Vous pouvez maintenant télécharger votre exemplaire de From On-Prem to Analytics: Azure Data Pipeline."
+        >
+          Your payment has been successfully completed. You can now download
+          your copy of From On-Prem to Analytics: Azure Data Pipeline.
+        </p>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="step-number">1</div>
+            <div>
+              <strong
+                data-en="Download your ebook"
+                data-fr="Téléchargez votre ebook"
+              >
+                Download your ebook
+              </strong>
+
+              <p
+                data-en="Click the download button below to open the PDF file."
+                data-fr="Cliquez sur le bouton ci-dessous pour ouvrir le fichier PDF."
+              >
+                Click the download button below to open the PDF file.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div>
+              <strong
+                data-en="Save it on your device"
+                data-fr="Enregistrez-le sur votre appareil"
+              >
+                Save it on your device
+              </strong>
+
+              <p
+                data-en="Keep a personal copy on your computer, tablet or phone."
+                data-fr="Conservez une copie personnelle sur votre ordinateur, tablette ou téléphone."
+              >
+                Keep a personal copy on your computer, tablet or phone.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div>
+              <strong
+                data-en="Contact us if you need help"
+                data-fr="Contactez-nous en cas de besoin"
+              >
+                Contact us if you need help
+              </strong>
+
+              <p
+                data-en="Mr Mouloken is available on WhatsApp for purchase or download questions."
+                data-fr="M. Mouloken reste disponible sur WhatsApp pour toute question liée à l'achat ou au téléchargement."
+              >
+                Mr Mouloken is available on WhatsApp for purchase or download questions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <!-- Replace YOUR_EBOOK_DOWNLOAD_LINK with your Google Drive or direct PDF link -->
+          <a
+            class="btn btn-primary"
+            href="https://drive.google.com/file/d/1888cwSx3pl69KOiWNKQb5FdMEyb33lZx/view?usp=sharing
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="Download the ebook"
+            data-fr="Télécharger l'ebook"
+          >
+            Download the ebook
+          </a>
+
+          <a
+            class="btn btn-whatsapp"
+            href="https://api.whatsapp.com/send?phone=32467810630&text=Hello%20Mr%20Mouloken%2C%20I%20have%20completed%20my%20payment%20for%20the%20Azure%20Data%20Pipeline%20ebook%20and%20I%20need%20assistance."
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="Contact Mr Mouloken"
+            data-fr="Contacter M. Mouloken"
+          >
+            Contact Mr Mouloken
+          </a>
+
+          <a
+            class="btn btn-secondary"
+            href="index.html"
+            data-en="Return to the website"
+            data-fr="Retourner sur le site"
+          >
+            Return to the website
+          </a>
+
+        </div>
+
+        <div
+          class="help-box"
+          data-en="Important: replace YOUR_EBOOK_DOWNLOAD_LINK in merci.html with the real Google Drive or PDF download link before publishing."
+          data-fr="Important : remplacez YOUR_EBOOK_DOWNLOAD_LINK dans merci.html par le véritable lien Google Drive ou de téléchargement du PDF avant de publier."
+        >
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 Mouloken André • Moulosoft Academy
+  </footer>
+
+  <script>
+    const languageButton = document.getElementById("languageButton");
+    let currentLanguage = "en";
+
+    function changeLanguage(language) {
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-en][data-fr]").forEach((element) => {
+        element.textContent = element.dataset[language];
+      });
+
+      currentLanguage = language;
+      languageButton.textContent = language === "en" ? "FR" : "EN";
+    }
+
+    languageButton.addEventListener("click", () => {
+      changeLanguage(currentLanguage === "en" ? "fr" : "en");
+    });
+  </script>
+
+</body>
+</html>
