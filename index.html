@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>From On-Prem to Analytics | Azure Data Pipeline Ebook</title>
+
+  <meta
+    name="description"
+    content="Buy the practical Azure Data Pipeline ebook covering SQL Server, Azure Data Factory, Data Lake, Databricks, Synapse and Power BI."
+  />
+
+  <style>
+    :root {
+      --primary: #0067b8;
+      --secondary: #7b2cbf;
+      --accent: #00b7c3;
+      --dark: #07111f;
+      --dark-soft: #0d1b2e;
+      --text: #18212f;
+      --muted: #64748b;
+      --light: #f4f8fc;
+      --white: #ffffff;
+      --success: #16a34a;
+      --whatsapp: #25d366;
+      --shadow: 0 18px 45px rgba(7, 17, 31, 0.12);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--dark);
+      color: var(--white);
+      padding: 10px 0;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e7edf4;
+    }
+
+    .navbar {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--dark);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      font-size: 1.3rem;
+      box-shadow: 0 8px 20px rgba(0, 103, 184, 0.25);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .nav-links a {
+      color: #334155;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .language-button {
+      padding: 11px 15px;
+      border-radius: 11px;
+      border: 1px solid #d7e3ef;
+      color: var(--dark);
+      background: var(--white);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .language-button:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #1593e4);
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(0, 103, 184, 0.24);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(0, 103, 184, 0.34);
+    }
+
+    .btn-outline {
+      border: 2px solid #d7e3ef;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-whatsapp {
+      background: var(--whatsapp);
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.22);
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(37, 211, 102, 0.32);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 88px 0 78px;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(123, 44, 191, 0.22), transparent 28%),
+        radial-gradient(circle at 15% 82%, rgba(0, 183, 195, 0.20), transparent 32%),
+        linear-gradient(135deg, #07111f 0%, #0a2a48 58%, #143a63 100%);
+      color: var(--white);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      align-items: center;
+      gap: 54px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 1.03;
+      margin-bottom: 22px;
+      letter-spacing: -0.04em;
+    }
+
+    .hero h1 span {
+      color: #68d7ff;
+    }
+
+    .hero p {
+      max-width: 720px;
+      font-size: 1.13rem;
+      color: #dbeafe;
+      margin-bottom: 24px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .price {
+      font-size: 2.6rem;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .payment-type {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: .88rem;
+      font-weight: 800;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .hero .btn-outline {
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      border-color: rgba(255,255,255,0.32);
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: #d8e7f7;
+      font-weight: 700;
+      font-size: 0.94rem;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .cover-wrap {
+      position: relative;
+    }
+
+    .cover-wrap img {
+      width: 100%;
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.32);
+    }
+
+    .cover-badge {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      color: var(--dark);
+      background: rgba(255,255,255,.94);
+      font-weight: 900;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
+    }
+
+    section {
+      padding: 84px 0;
+    }
+
+    .section-light {
+      background: var(--light);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title span {
+      color: var(--primary);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.12;
+      margin: 10px 0 14px;
+      color: var(--dark);
+    }
+
+    .section-title p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #e3ebf3;
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      color: var(--white);
+      font-size: 1.55rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .pipeline-step {
+      position: relative;
+      background: var(--white);
+      border: 1px solid #e3ebf3;
+      border-radius: 18px;
+      padding: 24px 18px;
+      text-align: center;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .pipeline-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -21px;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .pipeline-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 15px;
+      font-size: 1.45rem;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+
+    .pipeline-step strong {
+      display: block;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .pipeline-step small {
+      color: var(--muted);
+    }
+
+    .purchase-section {
+      padding: 74px 0;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(0,183,195,.28), transparent 28%),
+        linear-gradient(135deg, #07111f, #0e3c67);
+      color: var(--white);
+    }
+
+    .purchase-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .purchase-box h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .purchase-box p {
+      color: #d5e7fa;
+      max-width: 760px;
+    }
+
+    .purchase-buttons {
+      min-width: 245px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .small-note {
+      margin-top: 12px;
+      text-align: center;
+      color: #bfd3e6;
+      font-size: .82rem;
+    }
+
+    footer {
+      background: #030a13;
+      color: #aab8c8;
+      padding: 36px 0;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-content strong {
+      color: var(--white);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--whatsapp);
+      color: var(--white);
+      font-size: 1.65rem;
+      box-shadow: 0 14px 30px rgba(37, 211, 102, 0.35);
+      z-index: 1000;
+    }
+
+    @media (max-width: 1000px) {
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .pipeline-step:not(:last-child)::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -25px;
+        transform: translateX(50%);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .purchase-box {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 64px;
+      }
+
+      .purchase-buttons,
+      .purchase-buttons .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .nav-actions .btn-primary {
+        display: none;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-card {
+        padding: 18px;
+      }
+
+      section {
+        padding: 62px 0;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div
+    class="topbar"
+    data-en="Practical Azure Data Engineering ebook • Secure one-time payment"
+    data-fr="Ebook pratique Azure Data Engineering • Paiement unique sécurisé"
+  >
+    Practical Azure Data Engineering ebook • Secure one-time payment
+  </div>
+
+  <header>
+    <div class="container navbar">
+
+      <a class="brand" href="#home">
+        <span class="brand-logo">M</span>
+        <span>MOULOSOFT ACADEMY</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#inside" data-en="Inside the ebook" data-fr="Dans l'ebook">Inside the ebook</a>
+        <a href="#journey" data-en="Data journey" data-fr="Parcours Data">Data journey</a>
+        <a href="#buy" data-en="Buy" data-fr="Acheter">Buy</a>
+        <a href="#contact" data-en="Contact" data-fr="Contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="language-button" id="languageButton" type="button">FR</button>
+
+        <!-- Replace YOUR_STRIPE_PAYMENT_LINK with your real Stripe payment link -->
+        <a
+          class="btn btn-primary"
+          href="YOUR_STRIPE_PAYMENT_LINK"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-en="Buy for €25"
+          data-fr="Acheter à 25 €"
+        >
+          Buy for €25
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div>
+
+          <div
+            class="eyebrow"
+            data-en="📘 A complete visual Azure Data Pipeline guide"
+            data-fr="📘 Un guide visuel complet sur Azure Data Pipeline"
+          >
+            📘 A complete visual Azure Data Pipeline guide
+          </div>
+
+          <h1>
+            From On-Prem to <span>Analytics</span>
+          </h1>
+
+          <p
+            data-en="Learn how data moves from an on-premises SQL Server to Azure Data Lake, Databricks, Synapse Analytics and Power BI through a detailed, illustrated ebook."
+            data-fr="Découvrez comment les données passent d'un serveur SQL local à Azure Data Lake, Databricks, Synapse Analytics et Power BI grâce à un ebook détaillé et illustré."
+          >
+            Learn how data moves from an on-premises SQL Server to Azure Data Lake,
+            Databricks, Synapse Analytics and Power BI through a detailed,
+            illustrated ebook.
+          </p>
+
+          <div class="price-row">
+            <div class="price">€25</div>
+
+            <div
+              class="payment-type"
+              data-en="One-time payment"
+              data-fr="Paiement unique"
+            >
+              One-time payment
+            </div>
+          </div>
+
+          <div class="hero-actions">
+
+            <!-- Replace YOUR_STRIPE_PAYMENT_LINK with your real Stripe payment link -->
+            <a
+              class="btn btn-primary"
+              href="YOUR_STRIPE_PAYMENT_LINK"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-en="Buy the ebook now"
+              data-fr="Acheter l'ebook maintenant"
+            >
+              Buy the ebook now
+            </a>
+
+            <a
+              class="btn btn-outline"
+              href="https://api.whatsapp.com/send?phone=32467810630&text=Hello%20Mr%20Mouloken%2C%20I%20would%20like%20more%20information%20about%20the%20Azure%20Data%20Pipeline%20ebook."
+              target="_blank"
+              rel="noopener noreferrer"
+              data-en="Contact Mr Mouloken"
+              data-fr="Contacter M. Mouloken"
+            >
+              Contact Mr Mouloken
+            </a>
+
+          </div>
+
+          <div class="hero-points">
+            <span data-en="✓ Secure Stripe payment" data-fr="✓ Paiement Stripe sécurisé">✓ Secure Stripe payment</span>
+            <span data-en="✓ Digital PDF ebook" data-fr="✓ Ebook numérique PDF">✓ Digital PDF ebook</span>
+            <span data-en="✓ Step-by-step screenshots" data-fr="✓ Captures d'écran pas à pas">✓ Step-by-step screenshots</span>
+          </div>
+
+        </div>
+
+        <div class="hero-card">
+          <div class="cover-wrap">
+            <img
+              src="ebook-cover.jpg"
+              alt="From On-Prem to Analytics Azure Data Pipeline ebook cover"
+            />
+
+            <div
+              class="cover-badge"
+              data-en="Complete visual guide"
+              data-fr="Guide visuel complet"
+            >
+              Complete visual guide
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="inside">
+      <div class="container">
+
+        <div class="section-title">
+          <span data-en="Inside the ebook" data-fr="Dans l'ebook">Inside the ebook</span>
+
+          <h2
+            data-en="A practical Azure project from start to finish"
+            data-fr="Un projet Azure pratique du début à la fin"
+          >
+            A practical Azure project from start to finish
+          </h2>
+
+          <p
+            data-en="The ebook guides you through the installation, configuration, ingestion, transformation, analysis and visualization stages of a modern Azure data solution."
+            data-fr="L'ebook vous guide à travers l'installation, la configuration, l'ingestion, la transformation, l'analyse et la visualisation d'une solution de données Azure moderne."
+          >
+            The ebook guides you through the installation, configuration,
+            ingestion, transformation, analysis and visualization stages
+            of a modern Azure data solution.
+          </p>
+        </div>
+
+        <div class="cards">
+
+          <article class="card">
+            <div class="card-icon">📥</div>
+
+            <h3
+              data-en="Data ingestion"
+              data-fr="Ingestion des données"
+            >
+              Data ingestion
+            </h3>
+
+            <p
+              data-en="Connect SQL Server to Azure Data Factory and move the source data into Azure Data Lake."
+              data-fr="Connectez SQL Server à Azure Data Factory et transférez les données sources vers Azure Data Lake."
+            >
+              Connect SQL Server to Azure Data Factory and move the source
+              data into Azure Data Lake.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🔄</div>
+
+            <h3
+              data-en="Databricks transformations"
+              data-fr="Transformations Databricks"
+            >
+              Databricks transformations
+            </h3>
+
+            <p
+              data-en="Create Bronze, Silver and Gold layers and transform the data with notebooks and PySpark."
+              data-fr="Créez les couches Bronze, Silver et Gold et transformez les données avec des notebooks et PySpark."
+            >
+              Create Bronze, Silver and Gold layers and transform the data
+              with notebooks and PySpark.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">📊</div>
+
+            <h3
+              data-en="Analytics and reporting"
+              data-fr="Analyse et reporting"
+            >
+              Analytics and reporting
+            </h3>
+
+            <p
+              data-en="Expose the prepared data through Synapse Serverless and create useful dashboards in Power BI."
+              data-fr="Exposez les données préparées avec Synapse Serverless et créez des tableaux de bord utiles dans Power BI."
+            >
+              Expose the prepared data through Synapse Serverless and
+              create useful dashboards in Power BI.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-light" id="journey">
+      <div class="container">
+
+        <div class="section-title">
+          <span data-en="The complete journey" data-fr="Le parcours complet">The complete journey</span>
+
+          <h2
+            data-en="Understand how every tool works together"
+            data-fr="Comprenez comment chaque outil fonctionne avec les autres"
+          >
+            Understand how every tool works together
+          </h2>
+
+          <p
+            data-en="The ebook follows the complete flow below, from the original database to the final business dashboard."
+            data-fr="L'ebook suit le flux complet ci-dessous, de la base de données d'origine au tableau de bord métier final."
+          >
+            The ebook follows the complete flow below, from the original
+            database to the final business dashboard.
+          </p>
+        </div>
+
+        <div class="pipeline">
+
+          <article class="pipeline-step">
+            <div class="pipeline-icon">🗄️</div>
+            <strong>SQL Server</strong>
+            <small
+              data-en="On-premises source database"
+              data-fr="Base de données source locale"
+            >
+              On-premises source database
+            </small>
+          </article>
+
+          <article class="pipeline-step">
+            <div class="pipeline-icon">☁️</div>
+            <strong>Azure Data Lake</strong>
+            <small
+              data-en="Central cloud storage"
+              data-fr="Stockage central dans le Cloud"
+            >
+              Central cloud storage
+            </small>
+          </article>
+
+          <article class="pipeline-step">
+            <div class="pipeline-icon">⚙️</div>
+            <strong>Databricks</strong>
+            <small
+              data-en="Data cleaning and transformation"
+              data-fr="Nettoyage et transformation"
+            >
+              Data cleaning and transformation
+            </small>
+          </article>
+
+          <article class="pipeline-step">
+            <div class="pipeline-icon">🏢</div>
+            <strong>Synapse</strong>
+            <small
+              data-en="Analytics-ready data access"
+              data-fr="Accès aux données prêtes pour l'analyse"
+            >
+              Analytics-ready data access
+            </small>
+          </article>
+
+          <article class="pipeline-step">
+            <div class="pipeline-icon">📈</div>
+            <strong>Power BI</strong>
+            <small
+              data-en="Business dashboards and KPIs"
+              data-fr="Tableaux de bord et indicateurs"
+            >
+              Business dashboards and KPIs
+            </small>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="purchase-section" id="buy">
+      <div class="container purchase-box">
+
+        <div>
+          <h2
+            data-en="Get the complete ebook for €25"
+            data-fr="Obtenez l'ebook complet pour 25 €"
+          >
+            Get the complete ebook for €25
+          </h2>
+
+          <p
+            data-en="Make one secure payment through Stripe. For any question before or after your purchase, contact Mr Mouloken directly on WhatsApp."
+            data-fr="Effectuez un paiement unique et sécurisé avec Stripe. Pour toute question avant ou après votre achat, contactez directement M. Mouloken sur WhatsApp."
+          >
+            Make one secure payment through Stripe. For any question before
+            or after your purchase, contact Mr Mouloken directly on WhatsApp.
+          </p>
+        </div>
+
+        <div class="purchase-buttons">
+
+          <!-- Replace YOUR_STRIPE_PAYMENT_LINK with your real Stripe payment link -->
+          <a
+            class="btn btn-primary"
+            href="YOUR_STRIPE_PAYMENT_LINK"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="Pay €25 with Stripe"
+            data-fr="Payer 25 € avec Stripe"
+          >
+            Pay €25 with Stripe
+          </a>
+
+          <a
+            class="btn btn-whatsapp"
+            href="https://api.whatsapp.com/send?phone=32467810630&text=Hello%20Mr%20Mouloken%2C%20I%20have%20a%20question%20about%20the%20Azure%20Data%20Pipeline%20ebook."
+            target="_blank"
+            rel="noopener noreferrer"
+            data-en="Contact on WhatsApp"
+            data-fr="Contacter sur WhatsApp"
+          >
+            Contact on WhatsApp
+          </a>
+
+          <div
+            class="small-note"
+            data-en="One-time payment. No subscription."
+            data-fr="Paiement unique. Aucun abonnement."
+          >
+            One-time payment. No subscription.
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="contact">
+    <div class="container footer-content">
+
+      <div>
+        <strong>MOULOSOFT ACADEMY</strong><br />
+        Azure • Databricks • Data Engineering • Cloud
+      </div>
+
+      <div
+        data-en="© 2026 Mouloken André. All rights reserved."
+        data-fr="© 2026 Mouloken André. Tous droits réservés."
+      >
+        © 2026 Mouloken André. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+
+  <a
+    class="whatsapp-float"
+    href="https://api.whatsapp.com/send?phone=32467810630&text=Hello%20Mr%20Mouloken%2C%20I%20would%20like%20more%20information%20about%20the%20Azure%20Data%20Pipeline%20ebook."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contact Mr Mouloken on WhatsApp"
+    title="Contact Mr Mouloken on WhatsApp"
+  >
+    ☎
+  </a>
+
+  <script>
+    const languageButton = document.getElementById("languageButton");
+    let currentLanguage = "en";
+
+    function changeLanguage(language) {
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-en][data-fr]").forEach((element) => {
+        element.textContent = element.dataset[language];
+      });
+
+      currentLanguage = language;
+      languageButton.textContent = language === "en" ? "FR" : "EN";
+    }
+
+    languageButton.addEventListener("click", () => {
+      changeLanguage(currentLanguage === "en" ? "fr" : "en");
+    });
+  </script>
+
+</body>
+</html>
